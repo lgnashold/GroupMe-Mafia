@@ -1,11 +1,11 @@
 from setuptools import setup
 
-setup(name='my_project',
+setup(name='Group Me Mafia',
       version='0.1.0',
-      packages=['my_project'],
+      packages=['MafiaGame'],
       entry_points={
           'console_scripts': [
-              'my_project = my_project.__main__:main'
+              'Group = my_project.__main__:main'
           ]
       },
       )

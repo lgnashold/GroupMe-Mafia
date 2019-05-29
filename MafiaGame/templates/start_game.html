@@ -1,6 +1,16 @@
 <html>
   <body>
-    <h1> Make a Game </h1>
-    <p> This is the page of a game to play MAFIA!! </p>
-    </body>
+    <div style = "margin:auto; background-color:lightgray; width: 50%; padding: 15px;">
+      <h1> Welcome to the Mafia </h1>
+      <form method="post">
+	<strong><p>Name of Game</p></strong>
+	<input name="title" id="title" required>
+	<strong><p for="body">Members</p> </strong>
+	<p> Format is, with one member  per line: <i>Name, +1 5555555555</i> </p>
+	<textarea style = "width:450px; height: 250px; resize: none" name="body" id="body"></textarea>
+	<br/>
+	<input type="submit" value="Make Game">
+      </form>
+    </div>
+  </body>
 </html>
