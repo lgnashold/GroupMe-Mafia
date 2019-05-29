@@ -27,7 +27,4 @@ def upload_image(auth_token, filepath) :
         return(response) 
     return("failure")
 
-def create_group(auth_token):
-    url = "https://api.groupme.com/v3/groups"
-    data = {"name": "Mafia", "share": false, "token":auth_token}
-    reponse = requests.post(url, data)
+
