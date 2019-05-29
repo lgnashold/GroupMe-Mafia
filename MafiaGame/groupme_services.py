@@ -29,5 +29,21 @@ def upload_image(auth_token, filepath) :
 
 def create_group(auth_token):
     url = "https://api.groupme.com/v3/groups"
-    data = {"name": "Mafia", "share": false, "token":auth_token}
-    reponse = requests.post(url, data)
+    header = {"X-Access-Token":auth_token}
+    data = {"name": "Mafia", "share": False}
+    response = requests.post(url = url, data = json.dumps(data), headers = header)
+    if response.status_code == 201:
+        content = response.json()
+        return content["response"]["id"]
+    return response
+
+# Members should be an array of dictionaries containing "nickname" and "phone_number" entries
+def add_members(auth_token, groupid, members):
+    url = f"https://api.groupme.com/v3/groups/{groupid}/members/add"
+    header = {"X-Access-Token":auth_token}
+    data = {"members":members}
+    print(json.dumps(data))
+    response = requests.post(url = url, data = json.dumps(data), headers = header)
+    return response
+
+
