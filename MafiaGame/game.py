@@ -21,8 +21,10 @@ def index():
             formatted_people.append({"nickname":person[0].strip(), "phone_number": person[1].strip()})
 
         
-        id = gs.create_group(AUTH)
-        gs.add_members(AUTH, id, formatted_people)
+        groupid = gs.create_group(AUTH)
+        gs.add_members(AUTH, groupid, formatted_people)
+        botid = gs.create_bot(AUTH, groupid)
+        gs.send_message(botid, "Hello, and welcome to the game of mafia")
 
         
     return render_template('start_game.html')
