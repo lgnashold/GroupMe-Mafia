@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
  
-from create_sqltables import Player, Base, Vote, Game
+from MafiaGame.create_sqltables import Player, Base, Vote, Game
  
 engine = create_engine('sqlite:///sqllite_test.db')
 # Bind the engine to the metadata of the Base class so that the
@@ -21,7 +21,7 @@ session = DBSession()
 def make_game_table(group_id, bot_id, mafia_id, mafia_bot_id, members):
     player_list = []
     for m in members:
-        p = Player(id = m["id"], name = m["nickname"], role = m["role"], phone_number = m["number"])
+        p = Player(id = m["id"], name = m["nickname"], role = m["role"], phone_number = m["phone_number"])
         session.add(p)
         player_list.append(p)
 
@@ -41,24 +41,3 @@ def get_game_from_mafia(mafia_game_id):
     if len(result) != 1:
         return None
     return result[0]
-
-players = [{"id":1, "nickname":"Anna", "role":"Mafia", "number":1},
-           {"id":2, "nickname":"Bob", "role":"Villager", "number":1},
-           {"id":3, "nickname":"Mary", "role":"Villager", "number":1},
-           {"id":4, "nickname":"Jake", "role":"Villager", "number":1},
-           {"id":5, "nickname":"Calvin", "role":"Villager", "number":1}]
-
-new_game = make_game_table(1,2,3,4,players)
-
-
-print("PLAYERS: ")
-for player in new_game.players:
-    print(player.name)
-
-print()
-print("MAFIA: ")
-for player in get_mafia_members(1):
-    print(player.name)
-
-print(get_game(1).id)
-print(get_game_from_mafia(3).id)

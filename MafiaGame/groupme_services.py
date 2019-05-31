@@ -27,10 +27,10 @@ def upload_image(auth_token, filepath) :
         return(response) 
     return("failure")
 
-def create_group(auth_token):
+def create_group(auth_token, name):
     url = "https://api.groupme.com/v3/groups"
     header = {"X-Access-Token":auth_token}
-    data = {"name": "Mafia", "share": False}
+    data = {"name": name, "share": False}
     response = requests.post(url = url, data = json.dumps(data), headers = header)
     if response.status_code == 201:
         content = response.json()
