@@ -1,0 +1,28 @@
+How to Organize the SQL Table:
+
+Using SQLAlchemy classes.
+
+GAME
+Each row is a game.
+Columns:
+	GameID (primary key): The same as the groupme groupid
+	BotID: bot id for the group
+	Players: refrence to PLAYER type table
+	MafiaID: groupmeID for mafia groupchat
+	MafiaBotID: groupmeID for mafia groupchat bot
+	Votes: reference to VOTE type table
+	Mafia Votes: reference to VOTE type table
+
+VOTE
+each row is a vote.
+Columns:
+	PlayerIDVoteFrom (primary key): id of player who is voting
+	PlayerIDVoteTo: id of player who is being voted for
+
+PLAYER
+each row is a player
+Columns:
+	PlayerID (primary key): The groupmeid of that person
+	PlayerNickName: String nickname
+	Player Phone Number: Phone number given to contact
+	Player Role: Villager, Mafia, or SPECIALS?
