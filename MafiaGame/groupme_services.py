@@ -42,9 +42,48 @@ def add_members(auth_token, groupid, members):
     url = f"https://api.groupme.com/v3/groups/{groupid}/members/add"
     header = {"X-Access-Token":auth_token}
     data = {"members":members}
-    print(json.dumps(data))
+
     response = requests.post(url = url, data = json.dumps(data), headers = header)
     return response
+
+# Retrieves metadata for a given group
+def get_metadata(auth_token, groupid):
+    url = f"https://api.groupme.com/v3/groups/{groupid}"
+    header = {"X-Access-Token":auth_token}
+    response = requests.get(url = url, headers = header)
+    if response.status_code == 200:
+        content = response.json()
+        return content["response"]
+    return response 
+
+# Wrapper function for get_metadata that gets a dict of (id, name) pairs
+def get_user_ids(auth_token, groupid):
+    response = get_metadata(auth_token, groupid)
+    # Makes sure request succeeded
+    if type(response) != dict:
+        return None
+    
+    members = response["members"]
+
+    # Formats response nicely, but destroys avatar and muted data
+    members = {member["user_id"]:member["nickname"] for member in members}
+    return members
+
+   
+# Sends a get request for one set of messages
+def get_messages(auth_token, group_id, before_id = None):
+    url = f"https://api.groupme.com/v3/groups/{group_id}/messages"
+    header = {"X-Access-Token":auth_token}
+    data = {"limit":100}
+    if before_id != None:
+        data["before_id"] = before_id
+
+    response = requests.get(url = url, headers = header, params = data)
+    if response.status_code == 200:
+        content = response.json()
+        return content["response"]["messages"]
+    return response 
+
 
 def create_bot(auth_token, groupid):
     url = "https://api.groupme.com/v3/bots"
