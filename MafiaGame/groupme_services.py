@@ -2,6 +2,24 @@ import requests
 import json
 
 
+def destroy_group(auth_token, groupid):
+    url = f"https://api.groupme.com/v3/groups/{groupid}/destroy"
+    header = {"X-Access-Token": auth_token}
+    response = requests.post(url, headers = header)
+    return response
+
+
+def get_active_groups(auth_token, page = 1, page_size=50):
+    url = "https://api.groupme.com/v3/groups"
+    header = {"X-Access-Token":auth_token}
+    params = {"page":page, "per_page":page_size, "omit":"memberships"}
+    response = requests.get(url = url, headers = header, params=params)
+    if response.status_code == 200:
+        content = response.json()
+        return content["response"]
+    return None
+
+
 # Sends a message to a Groupme group and returns response
 def send_message(botid, message, image_url = None) :
     url = "https://api.groupme.com/v3/bots/post"
