@@ -49,6 +49,8 @@ def get_mafia_members(game_id):
 def get_players(game_id):
     return session.query(Player).filter(Player.game_id == game_id)
 
+def get_player(player_id):
+    return session.query(Player).filter(Player.id == player_id)
 
 def get_game(game_id):
     result = session.query(Game).filter(Game.id == game_id).all()
