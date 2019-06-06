@@ -30,9 +30,12 @@ def make_game_table(game):
 
 def add_vote(id_from, id_for, game_id):
     result = session.query(Vote).filter(Vote.id_from == id_from).all()
+    check_to = session.query(Vote).filter(Vote.id_for == id_for).all()
     if len(result) == 1 :
         session.delete(result[0])
         session.commit()
+    if len(check_to) != 1:
+        raise Exception("The player voted for does not exist.")
     v = Vote(id_from = id_from, id_for = id_for, game_id = game_id, game = get_game(game_id))
     session.add(v)
     session.commit()
