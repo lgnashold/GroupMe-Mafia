@@ -28,8 +28,8 @@ def make_game_table(game):
     session.commit()
     return game
 
-def add_vote(vote, game):
-    v = Vote(id_from = vote["id_from"], id_for = vote["id_for"], game_id = game["id"], game = game)
+def add_vote(id_from, id_for, game_id):
+    v = Vote(id_from = id_from, id_for = id_for, game_id = game_id, game = get_game(game_id))
     v.add()
     v.commit()
 
