@@ -28,6 +28,19 @@ def make_game_table(game):
     session.commit()
     return game
 
+def add_vote(vote, game):
+    v = Vote(id_from = vote["id_from"], id_for = vote["id_for"], game_id = game["id"], game = game)
+    v.add()
+    v.commit()
+
+def get_votes(game_id):
+    session.query(Vote).filter(Vote.game_id == game_id)
+
+
+def clear_votes(game_id):
+    for vote in get_votes:
+        db.session.remove(vote)
+        db.commit()
 
 def get_mafia_members(game_id):
     return get_players(game_id).filter(Player.role == "Mafia")
