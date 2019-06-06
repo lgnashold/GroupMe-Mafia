@@ -15,26 +15,19 @@ def help_handler(bot_id, chat_type):
         gs.send_message(bot_id, "Trick the villagers")
 
 
-def get_votes(game_id):
+def handle_majority(bot_id, game_id, force_night = False):
+    # Parses dictionary
     votes = db.get_votes(game_id)
     if votes is None:
         return None
     final_votes = defaultdict(list)
     for vote in votes:
         final_votes[vote.id_for].append(vote.id_from)
-    return final_votes
+    votes = final_votes
 
-
-def handle_majority(bot_id, game_id, force_night = False):
-    votes = get_votes(game_id)
-    print(votes)
-    if votes is None:
-        print("No votes :(")
-        return
     players = db.get_players(game_id)
     max = 0
     top = None
-
     message = ''
     for vote_for, votes_from in votes.items():
         vote_for = db.get_player(vote_for)
@@ -54,6 +47,7 @@ def handle_majority(bot_id, game_id, force_night = False):
     summary += "It is now nighttime. No talking."
     gs.send_message(bot_id, message)
     gs.send_message(bot_id, summary)
+
 
 def update_votes(bot_id, game_id, user, tagged):
     players = db.get_players(game_id)

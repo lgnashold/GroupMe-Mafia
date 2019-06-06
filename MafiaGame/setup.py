@@ -57,4 +57,3 @@ def set_up_game(name, formatted_people):
     game = set_up_game_groups(name, formatted_people, mafia)
     send_welcome_messages(game)
     db.make_game_table(game)
-    print(db.get_game(game["gameid"]).__dict__)
