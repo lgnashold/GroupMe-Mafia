@@ -29,28 +29,32 @@ def make_game_table(game):
     return game
 
 def add_vote(id_from, id_for, game_id):
+    result = session.query(Vote).filter(Vote.id_from == id_from).all()
+    if len(result) == 1 :
+        session.delete(result[0])
+        session.commit()
     v = Vote(id_from = id_from, id_for = id_for, game_id = game_id, game = get_game(game_id))
-    v.add()
-    db.commit()
+    session.add(v)
+    session.commit()
 
 def get_votes(game_id):
-    session.query(Vote).filter(Vote.game_id == game_id)
+    return session.query(Vote).filter(Vote.game_id == game_id).all()
 
 
 def clear_votes(game_id):
     for vote in get_votes:
-        db.session.remove(vote)
-        db.commit()
+        session.delete(vote)
+        session.commit()
 
 def get_mafia_members(game_id):
-    return get_players(game_id).filter(Player.role == "Mafia")
+    return get_players(game_id).filter(Player.role == "Mafia").all()
 
 
 def get_players(game_id):
-    return session.query(Player).filter(Player.game_id == game_id)
+    return session.query(Player).filter(Player.game_id == game_id).all()
 
 def get_player(player_id):
-    return session.query(Player).filter(Player.id == player_id)
+    return session.query(Player).filter(Player.id == player_id).all()[0]
 
 def get_game(game_id):
     result = session.query(Game).filter(Game.id == game_id).all()

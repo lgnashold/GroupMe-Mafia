@@ -50,3 +50,10 @@ def callback(groupid, group_type):
     data = request.get_json()
     cb.callback(groupid, group_type, data)
     return 'Success'
+
+@bp.route('/tests')
+def tests():
+    db.add_vote(234234, 32324, 343423)
+    db.add_vote(32324, 234234, 343423)
+    print(db.get_votes(343423))
+    return "Nice"
