@@ -31,7 +31,7 @@ def make_game_table(game):
 def add_vote(id_from, id_for, game_id):
     v = Vote(id_from = id_from, id_for = id_for, game_id = game_id, game = get_game(game_id))
     v.add()
-    v.commit()
+    db.commit()
 
 def get_votes(game_id):
     session.query(Vote).filter(Vote.game_id == game_id)
