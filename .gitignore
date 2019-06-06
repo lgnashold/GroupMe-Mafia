@@ -1,4 +1,5 @@
 MafiaGame/AUTHTOKEN.py
+.idea/
 .env
 *~
 *.pyc
