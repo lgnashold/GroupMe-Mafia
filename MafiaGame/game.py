@@ -3,6 +3,7 @@ import MafiaGame.AUTHTOKEN as a
 import random, json
 import MafiaGame.db_access as db
 import MafiaGame.setup as setup
+import MafiaGame.callback as cb
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
@@ -47,8 +48,5 @@ def get_info():
 @bp.route('/callback/<groupid>/<group_type>', methods=['POST'])
 def callback(groupid, group_type):
     data = request.get_json()
-    text = data['text'].strip()
-    if text.startswith("!help"):
-        # We would put the method that actually handled commands here
-        gs.send_message(db.get_game(groupid).bot_id, "Sorry, I can't help yet")
+    cb.callback(groupid, group_type, data)
     return 'Success'

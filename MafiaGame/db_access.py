@@ -26,12 +26,18 @@ def make_game_table(game):
         session.add(p)
         player_list.append(p)
 
-    return Game(id=game['gameid'], bot_id=game['botid'], mafia_id=game['mafiaid'], mafia_bot_id=game['mafiabotid'],
+    game = Game(id=game['gameid'], bot_id=game['botid'], mafia_id=game['mafiaid'], mafia_bot_id=game['mafiabotid'],
                 players=player_list)
+    session.commit()
+    return game
 
 
 def get_mafia_members(game_id):
-    return session.query(Player).filter(Player.game_id == game_id).filter(Player.role == "Mafia")
+    return get_players(game_id).filter(Player.role == "Mafia")
+
+
+def get_players(game_id):
+    return session.query(Player).filter(Player.game_id == game_id)
 
 
 def get_game(game_id):
