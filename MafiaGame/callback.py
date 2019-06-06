@@ -20,8 +20,8 @@ def vote_handler(bot_id, game_id, user, tagged):
         gs.send_message(bot_id, "You can only vote for one person!")
     elif len(tagged) < 1:
         gs.send_message(bot_id, "I did not recognize that person. Make sure you do !vote @[person name]")
-    print(players)
-    gs.send_message(bot_id, "Your vote has been counted!")
+    else:
+        gs.send_message(bot_id, "Your vote has been counted!")
 
 
 def callback(game_id, chat_type, message):
@@ -34,7 +34,7 @@ def callback(game_id, chat_type, message):
         if item['type'] == 'mentions':
             mentions=item['user_ids']
 
-    if text.starts_with("!help"):
+    if text.startswith("!help"):
         help_handler(bot_id, chat_type)
-    elif text.starts_with("!vote"):
+    elif text.startswith("!vote"):
         vote_handler(bot_id, game_id, user, mentions)

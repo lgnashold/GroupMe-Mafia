@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4270a9db-9f2b-4785-888a-62d9b8d347d6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/MafiaGame/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/MafiaGame/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MafiaGame/callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/MafiaGame/callback.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MafiaGame/create_sqltables.py" beforeDir="false" afterPath="$PROJECT_DIR$/MafiaGame/create_sqltables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MafiaGame/db_access.py" beforeDir="false" afterPath="$PROJECT_DIR$/MafiaGame/db_access.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MafiaGame/sqllite_test.db" beforeDir="false" afterPath="$PROJECT_DIR$/MafiaGame/sqllite_test.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,8 +73,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MafiaGame/callback.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="31" column="17" lean-forward="true" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+            <state relative-caret-position="345">
+              <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -233,7 +228,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7109000" />
+    <option name="totallyTimeSpent" value="7280000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
@@ -345,8 +340,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MafiaGame/callback.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="17" lean-forward="true" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+        <state relative-caret-position="345">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
