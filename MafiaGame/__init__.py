@@ -8,8 +8,11 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        SQLALCHEMY_DATABASE_URI= 'sqlite:///sqllite_test.db',
+        SQLALCHEMY_TRACK_MODIFICATIONS = False
     )
+
+
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -29,9 +32,14 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
+    import MafiaGame.create_sqltables as cs
+    cs.db.init_app(app)
+    app.app_context().push()
+    cs.init_db()
+
     from . import game
     app.register_blueprint(game.bp)
     app.add_url_rule('/', endpoint='index')
-    
+
     return app
 

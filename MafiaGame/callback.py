@@ -28,13 +28,13 @@ def callback(game_id, chat_type, message):
     text = message["text"].strip()
     user = message['user_id']
     game = db.get_game(game_id)
-    #bot_id = game.bot_id
+    bot_id = game.bot_id
     mentions = []
-    # for item in message['attachments']:
-    #     if item['type'] == 'mentions':
-    #         mentions=item['user_ids']
-    #
-    # if text.starts_with("!help"):
-    #     help_handler(bot_id, chat_type)
-    # elif text.starts_with("!vote"):
-    #     vote_handler(bot_id, game_id, user, mentions)
+    for item in message['attachments']:
+        if item['type'] == 'mentions':
+            mentions=item['user_ids']
+
+    if text.starts_with("!help"):
+        help_handler(bot_id, chat_type)
+    elif text.starts_with("!vote"):
+        vote_handler(bot_id, game_id, user, mentions)

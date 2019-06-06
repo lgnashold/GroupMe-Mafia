@@ -9,7 +9,7 @@ verify_ssl = true
 requests = "*"
 flask = "*"
 python-dotenv = "*"
-sqlalchemy = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"
