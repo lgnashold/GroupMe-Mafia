@@ -9,6 +9,7 @@ from flask import (
 
 bp = Blueprint('game', __name__)
 AUTH = a.AUTH
+BASE_URL = "http://76.250.32.204:5000"
 
 @bp.route('/',methods=('GET','POST'))
 def index():
@@ -29,6 +30,16 @@ def index():
 @bp.route('/getinfo', methods=('GET','POST'))
 def get_info():
     print("Recieved Information")
+
+# Type is either 'mafia', 'main', or 'user'
+@bp.route('/callback/<groupid>/<group_type>', methods = ['POST'])
+def callback(groupid, group_type):
+    data = json.loads(request.get_json())
+    text = data['text'].strip()
+    if( text.startswith("!help")):
+        # We would put the method that actually handled commands here
+        print("Help message") 
+    return 'Success'
 
 
 def set_up_game(name, formatted_people):
@@ -52,12 +63,13 @@ def set_up_game(name, formatted_people):
     
     groupid = gs.create_group(AUTH, "GroupMe Mafia: " + name)
     gs.add_members(AUTH, groupid, formatted_people)
-    botid = gs.create_bot(AUTH, groupid)
+    botid = gs.create_bot(AUTH, groupid, callback = f"{BASE_URL}/callback/{groupid}/main")
     
     mafiaid = gs.create_group(AUTH, "GroupMe Mafia: " + name + " [The Mafia]")
     gs.add_members(AUTH,mafiaid, mafia)
-    mafiabotid = gs.create_bot(AUTH,mafiaid)
+    mafiabotid = gs.create_bot(AUTH,mafiaid, callback = f"{BASE_URL}/callback/{groupid}/mafia")
 
     gs.send_message(botid, "Hello, and welcome to GroupMe Mafia. You are the Villagers")
     gs.send_message(mafiabotid, "Welcome, to the Mafia.")
+    
     

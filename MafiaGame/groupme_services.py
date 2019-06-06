@@ -85,13 +85,17 @@ def get_messages(auth_token, group_id, before_id = None):
     return response 
 
 
-def create_bot(auth_token, groupid):
+def create_bot(auth_token, groupid, callback=None):
     url = "https://api.groupme.com/v3/bots"
     header = {"X-Access-Token":auth_token}
     data = {"bot": {"name":"Narrator", "group_id":groupid}}
+    if callback is not  None:
+        data["bot"]["callback_url"]=callback
+    print(data)
     response = requests.post(url = url, data = json.dumps(data), headers = header)
     if response.status_code == 201:
         content = response.json()
+        print("callback: "+content["response"]["bot"]["callback_url"])
         return content["response"]["bot"]["bot_id"]
     return response
 
