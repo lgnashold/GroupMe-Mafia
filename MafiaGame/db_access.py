@@ -29,8 +29,8 @@ def make_game_table(game):
     return game
 
 def add_vote(id_from, id_for, game_id):
-    result = session.query(Vote).filter(Vote.id_from == id_from).all()
-    check_to = session.query(Vote).filter(Vote.id_for == id_for).all()
+    result = session.query(Vote).filter(Vote.id_from == id_from and Vote.game_id == game_id).all()
+    check_to = session.query(Player).filter(id_for == Player.id and Player.game_id == game_id).all()
     if len(result) == 1 :
         session.delete(result[0])
         session.commit()
@@ -56,8 +56,9 @@ def get_mafia_members(game_id):
 def get_players(game_id):
     return session.query(Player).filter(Player.game_id == game_id).all()
 
-def get_player(player_id):
-    return session.query(Player).filter(Player.id == player_id).all()[0]
+def get_player(game_id, player_id):
+    # TODO: Filter by game AND player
+    return session.query(Player).filter(Player.id == player_id and Player.game_id == game_id).all()[0]
 
 def get_game(game_id):
     result = session.query(Game).filter(Game.id == game_id).all()
