@@ -56,7 +56,6 @@ def update_votes(bot_id, game_id, user, tagged):
     elif len(tagged) < 1:
         gs.send_message(bot_id, "I did not recognize that person. Make sure you do !vote @[person name]")
     else:
-
         db.add_vote(user, tagged[0], game_id)
         try:
             gs.send_message(bot_id, "Your vote has been counted!")
@@ -66,6 +65,7 @@ def update_votes(bot_id, game_id, user, tagged):
 
 
 def callback(game_id, chat_type, message):
+    print(message['attachments'])
     text = message["text"].strip()
     user = message['user_id']
     game = db.get_game(game_id)

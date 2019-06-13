@@ -1,6 +1,48 @@
-import requests
-import json
+import requests, json, time
+AUTH = "OF15dSRLkZMhepiCnKxK6p1vheLd1xQTM8cNdLn9"
 
+def main():
+    print(get_winner(AUTH, "26429658"))
+
+
+# Gets winner of most recent completed poll, or arbitrary poll if number is specified
+# NOTE: number doesn't work if it's too high, because get_polls only returns first page of polls
+# NOTE: Picks first option in case of tie
+def get_winner(auth_token, groupid, number = 0):
+    response = get_polls(auth_token, groupid)
+    i = 0
+    for poll in response['polls']:
+        poll = poll['data']
+        if poll['status'] == 'past':
+            if i == number:
+                mx = max(poll['options'], key = lambda option: option['votes'] if 'votes' in option else 0)
+                return mx['title']
+            i += 1
+    return None
+
+
+def get_polls(auth_token, groupid) :
+    url = f"https://api.groupme.com/v3/poll/{groupid}"
+    header = {"X-Access-Token": auth_token}
+    response = requests.get(url, headers = header)
+    if response.status_code == 200:
+        return response.json()['response']
+    return response
+
+
+def create_poll(auth_token, groupid, title, choices, expiration = None):
+    # Expiration must be greater than 45 minutes I think
+    url = f"https://api.groupme.com/v3/poll/{groupid}"
+    header = {"X-Access-Token": auth_token}
+    poll = {
+        "subject":title, "options":[{"title":choice} for choice in choices],
+        "expiration": int(time.time()) + 60 * 60
+    }
+    response = requests.post(url, headers = header, data = json.dumps(poll))
+    if response.status_code == 201:
+        content = response.json()
+        return content
+    return response
 
 def destroy_group(auth_token, groupid):
     url = f"https://api.groupme.com/v3/groups/{groupid}/destroy"
@@ -118,3 +160,5 @@ def create_bot(auth_token, groupid, callback=None):
     return response
 
 
+if __name__ == "__main__":
+    main()
